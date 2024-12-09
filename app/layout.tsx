@@ -10,8 +10,8 @@ const kumbhsans = Kumbh_Sans({ subsets: ["latin"] });
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata: Metadata = {
-  title: "Comfycuddle",
-  description: "Find your cuddle companion today!",
+  title: "MoodDaily",
+  description: "Create your mood record and see how you feel!",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
             "text-lg sm:text-xl md:text-2xl textGradient " + fugaz.className
           }
         >
-          Comfycuddle
+          MoodDaily
         </h1>
       </Link>
       <Signout />
@@ -35,7 +35,7 @@ export default function RootLayout({
   );
   const footer = (
     <footer className="p-4 sm:p-8 grid place-items-center">
-      <p className={"text-indigo-400 " + fugaz.className}>Create with Heart</p>
+      <p className={"text-indigo-400 " + fugaz.className}>Create by Mungkud</p>
     </footer>
   );
 
