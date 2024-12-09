@@ -3,8 +3,9 @@ import React from "react";
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ["400"] });
 
-export default function Button(props: Partial<{ text: string; dark: boolean; full: boolean; clickHandler : any }>) {
+export default function Button(props: Partial<{ text: string; dark: boolean; full: boolean; clickHandler :React.MouseEventHandler<HTMLButtonElement> }>) {
   const { text = "Button Name", dark = false, full = false, clickHandler } = props;
+  
   return (
     <button
       onClick={clickHandler}

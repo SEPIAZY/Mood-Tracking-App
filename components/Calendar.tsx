@@ -1,5 +1,5 @@
 "use client";
-import { gradients, baseRating, demoData } from "@/utils/index";
+import { gradients, baseRating } from "@/utils/index";
 import React, { useState } from "react";
 import { Fugaz_One } from "next/font/google";
 
@@ -20,7 +20,6 @@ const months = {
   December: "Dec",
 };
 const monthsArr = Object.keys(months);
-const now = new Date();
 const dayList = [
   "Sunday",
   "Monday",
@@ -31,10 +30,21 @@ const dayList = [
   "Saturday",
 ];
 
+interface CompletedData {
+  [year: number]: {
+    [month: number]: {
+      [day: number]: number;
+    };
+  };
+}
+
 export default function Calendar(
-  props: Partial<{ demo: String; completedData: any; handleSetMood: any }>
+  props: Partial<{ demo: string; completedData: CompletedData; handleSetMood:(mood: number) => Promise<void> }>
 ) {
-  const { demo, completedData, handleSetMood } = props;
+  
+  const { demo, completedData } = props;
+  console.log('complete data type:', typeof(completedData))
+
   const now = new Date();
   const currMonth = now.getMonth();
   const [selectedMonth, setSelectMonth] = useState(
@@ -45,7 +55,7 @@ export default function Calendar(
   const data = completedData?.[selectedYear]?.[numericMonth] || {};
   
 
-  function handleIncrementMonth(val: any) {
+  function handleIncrementMonth(val: number) {
     // value +1 -1
     // if we hit the bounds of the months, then we can just adjust the year that is displayed instead
     if (numericMonth + val < 0) {
@@ -92,11 +102,11 @@ export default function Calendar(
                     return (
                         <div key={rowIndex} className='grid grid-cols-7 gap-1'>
                             {dayList.map((dayOfWeek, dayOfWeekIndex) => {
-                                let dayIndex = (rowIndex * 7) + dayOfWeekIndex - (firstDayOfMonth - 1)
+                                const dayIndex = (rowIndex * 7) + dayOfWeekIndex - (firstDayOfMonth - 1)
 
-                                let dayDisplay = dayIndex > daysInMonth ? false : (row === 0 && dayOfWeekIndex < firstDayOfMonth) ? false : true
+                                const dayDisplay = dayIndex > daysInMonth ? false : (row === 0 && dayOfWeekIndex < firstDayOfMonth) ? false : true
 
-                                let isToday = dayIndex === now.getDate()
+                                const isToday = dayIndex === now.getDate()
 
                                 if (!dayDisplay) {
                                     return (
@@ -104,7 +114,7 @@ export default function Calendar(
                                     )
                                 }
 
-                                let color = demo ?
+                                const color = demo ?
                                     gradients.indigo[baseRating[dayIndex]] :
                                     dayIndex in data ?
                                         gradients.indigo[data[dayIndex]] :

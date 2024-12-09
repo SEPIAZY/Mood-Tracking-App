@@ -1,5 +1,5 @@
 "use client";
-import { Days_One, Fugaz_One } from "next/font/google";
+import { Fugaz_One } from "next/font/google";
 import React, { useState, useEffect } from "react";
 import Calendar from "./Calendar";
 import { useAuth } from "@/context/AuthContext";
@@ -26,10 +26,10 @@ export default function Dashboard() {
   function countValues() {
     let total_number_of_days = 0
     let sum_moods = 0
-    for (let year in data) {
-      for (let month in data[year]) {
-        for (let day in data[year][month]) {
-          let days_mood = data[year][month][day]
+    for (const year in data) {
+      for (const month in data[year]) {
+        for (const day in data[year][month]) {
+          const days_mood = data[year][month][day]
           total_number_of_days++
           sum_moods += days_mood
         }
@@ -63,7 +63,7 @@ export default function Dashboard() {
       setUserData(newData);
 
       const docRef = doc(db, "users", currentUser.uid);
-      const res = await setDoc(
+      await setDoc(
         docRef,
         {
           [year]: {
